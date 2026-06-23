@@ -1,0 +1,242 @@
+[
+  {
+    "carName": "Mercedes-Benz S-Class S500",
+    "dailyRentPrice": 420,
+    "carType": "Luxury",
+    "imageUrl": "https://i.ibb.co.com/wNCMK0d3/1-Mercedes-Benz.png",
+    "seatCapacity": 5,
+    "pickupLocation": "Manhattan, New York",
+    "description": "The S-Class sets the benchmark for executive luxury. Expect whisper-quiet cabin comfort, supple leather upholstery, and a ride that feels engineered for calm. Ideal for client meetings, airport transfers, or simply arriving in style.",
+    "availabilityStatus": "available"
+  },
+  {
+    "carName": "BMW 7 Series 740i",
+    "dailyRentPrice": 380,
+    "carType": "Luxury",
+    "imageUrl": "https://i.ibb.co.com/60kSZQLG/2-BMW.png",
+    "seatCapacity": 5,
+    "pickupLocation": "Beverly Hills, Los Angeles",
+    "description": "A masterclass in refined power. The 740i blends a confident road presence with a cabin tuned for long, comfortable drives — perfect for those who want presence without excess.",
+    "availabilityStatus": "available"
+  },
+  {
+    "carName": "Audi A8 L",
+    "dailyRentPrice": 365,
+    "carType": "Luxury",
+    "imageUrl": "https://i.ibb.co.com/sps1rJV1/3-Audi.png",
+    "seatCapacity": 5,
+    "pickupLocation": "Downtown Chicago",
+    "description": "Understated elegance with quattro all-wheel drive underneath. The A8 L delivers a smooth, composed ride with just enough technology to feel modern without feeling busy.",
+    "availabilityStatus": "booked"
+  },
+  {
+    "carName": "Genesis G90",
+    "dailyRentPrice": 340,
+    "carType": "Luxury",
+    "imageUrl": "https://i.ibb.co.com/LzvnpD9c/4-Genesis-G90.png",
+    "seatCapacity": 5,
+    "pickupLocation": "Miami Beach, Florida",
+    "description": "Genesis brings a quieter kind of luxury — handcrafted details, a hushed cabin, and a ride that prioritizes comfort over flash. A favorite for guests who want premium without pretense.",
+    "availabilityStatus": "available"
+  },
+  {
+    "carName": "Lexus LS 500",
+    "dailyRentPrice": 355,
+    "carType": "Luxury",
+    "imageUrl": "https://i.ibb.co.com/JwT8dCYc/5-Lexus-LS-500.png",
+    "seatCapacity": 5,
+    "pickupLocation": "SeaTac, Seattle",
+    "description": "Meticulously built and exceptionally smooth, the LS 500 is the choice for travelers who notice the details — stitched leather, near-silent cabin, and a ride that irons out rough roads.",
+    "availabilityStatus": "available"
+  },
+  {
+    "carName": "Toyota Camry SE",
+    "dailyRentPrice": 68,
+    "carType": "Sedan",
+    "imageUrl": "https://i.ibb.co.com/F40HxdKz/6-Toyota-Camry.png",
+    "seatCapacity": 5,
+    "pickupLocation": "Downtown Chicago",
+    "description": "Dependable, fuel-efficient, and comfortable for everyday driving. The Camry SE is a smart pick for business trips or city errands where you just need a car that works.",
+    "availabilityStatus": "available"
+  },
+  {
+    "carName": "Honda Accord Sport",
+    "dailyRentPrice": 65,
+    "carType": "Sedan",
+    "imageUrl": "https://i.ibb.co.com/3y530LxF/7-Honda-Accord.png",
+    "seatCapacity": 5,
+    "pickupLocation": "Logan Airport, Boston",
+    "description": "A well-rounded sedan with sharper styling and responsive handling. Spacious enough for a family trip, agile enough for a weekend getaway.",
+    "availabilityStatus": "available"
+  },
+  {
+    "carName": "Nissan Altima SV",
+    "dailyRentPrice": 62,
+    "carType": "Sedan",
+    "imageUrl": "https://i.ibb.co.com/Y4ZhPT7b/8-Nissan-Altima.png",
+    "seatCapacity": 5,
+    "pickupLocation": "Austin, Texas",
+    "description": "Comfortable seating, a quiet ride, and easy-to-use tech make the Altima a no-fuss option for daily commutes or short business trips.",
+    "availabilityStatus": "unavailable"
+  },
+  {
+    "carName": "Hyundai Sonata Limited",
+    "dailyRentPrice": 64,
+    "carType": "Sedan",
+    "imageUrl": "https://i.ibb.co.com/sdgxKhmt/9-Hyundai-Sonata.png",
+    "seatCapacity": 5,
+    "pickupLocation": "Denver International Airport",
+    "description": "Spacious, modern, and surprisingly upscale inside for its class. The Sonata Limited is a comfortable choice for both city driving and longer highway stretches.",
+    "availabilityStatus": "available"
+  },
+  {
+    "carName": "Volkswagen Passat SE",
+    "dailyRentPrice": 60,
+    "carType": "Sedan",
+    "imageUrl": "https://i.ibb.co.com/1JQbKwbm/10-Volkswagen-Passat.png",
+    "seatCapacity": 5,
+    "pickupLocation": "Philadelphia International Airport",
+    "description": "A European-tuned ride with generous legroom and a calm, composed feel on the highway. Great for travelers who value comfort over flash.",
+    "availabilityStatus": "available"
+  },
+  {
+    "carName": "Toyota RAV4 Adventure",
+    "dailyRentPrice": 95,
+    "carType": "SUV",
+    "imageUrl": "https://i.ibb.co.com/B2HvbL2W/11-Toyota-RAV4.png",
+    "seatCapacity": 5,
+    "pickupLocation": "Denver International Airport",
+    "description": "Built for versatility — ample cargo space, confident handling, and enough ground clearance for light off-road detours. A practical favorite for family trips.",
+    "availabilityStatus": "available"
+  },
+  {
+    "carName": "Honda CR-V EX-L",
+    "dailyRentPrice": 92,
+    "carType": "SUV",
+    "imageUrl": "https://i.ibb.co.com/ZRbX1Xp7/12-Honda-CR-V.png",
+    "seatCapacity": 5,
+    "pickupLocation": "Logan Airport, Boston",
+    "description": "Roomy, efficient, and easy to drive in any setting — from tight city streets to long highway stretches. The CR-V is a reliable everyday SUV.",
+    "availabilityStatus": "available"
+  },
+  {
+    "carName": "Jeep Grand Cherokee Limited",
+    "dailyRentPrice": 110,
+    "carType": "SUV",
+    "imageUrl": "https://i.ibb.co.com/xKq8LHjx/13-Jeep-Grand-Cherokee.png",
+    "seatCapacity": 5,
+    "pickupLocation": "Austin, Texas",
+    "description": "A rugged yet refined SUV that handles rough terrain as comfortably as it does the highway. Spacious cabin, strong towing capability, and a commanding driving position.",
+    "availabilityStatus": "booked"
+  },
+  {
+    "carName": "Ford Explorer XLT",
+    "dailyRentPrice": 105,
+    "carType": "SUV",
+    "imageUrl": "https://i.ibb.co.com/LztzD2T0/14-Ford-Explorer.png",
+    "seatCapacity": 7,
+    "pickupLocation": "Phoenix Sky Harbor Airport",
+    "description": "Three rows of seating make this the go-to choice for larger groups or families. Comfortable, practical, and easy to load up for longer trips.",
+    "availabilityStatus": "available"
+  },
+  {
+    "carName": "Chevrolet Tahoe LT",
+    "dailyRentPrice": 130,
+    "carType": "SUV",
+    "imageUrl": "https://i.ibb.co.com/B5Ytj316/15-Chevrolet-Tahoe.png",
+    "seatCapacity": 8,
+    "pickupLocation": "Miami Beach, Florida",
+    "description": "A full-size SUV built for big groups and big luggage. The Tahoe offers a smooth highway ride with the space and capability of a true workhorse.",
+    "availabilityStatus": "available"
+  },
+  {
+    "carName": "Volkswagen Golf SE",
+    "dailyRentPrice": 52,
+    "carType": "Hatchback",
+    "imageUrl": "https://i.ibb.co.com/FkgMcjn1/16-Volkswagen-Golf.png",
+    "seatCapacity": 5,
+    "pickupLocation": "Portland, Oregon",
+    "description": "Compact, nimble, and easy to park in tight city spaces. The Golf is an efficient choice for solo travelers or couples exploring urban areas.",
+    "availabilityStatus": "available"
+  },
+  {
+    "carName": "Honda Fit EX",
+    "dailyRentPrice": 45,
+    "carType": "Hatchback",
+    "imageUrl": "https://i.ibb.co.com/KcqjZfqh/17-Honda-Fit.png",
+    "seatCapacity": 5,
+    "pickupLocation": "San Diego, California",
+    "description": "Surprisingly roomy for its size, with excellent fuel economy. A smart, budget-friendly pick for city commutes and errands.",
+    "availabilityStatus": "available"
+  },
+  {
+    "carName": "Mini Cooper S",
+    "dailyRentPrice": 75,
+    "carType": "Hatchback",
+    "imageUrl": "https://i.ibb.co.com/35pVC18M/18-Mini-Cooper-S.png",
+    "seatCapacity": 4,
+    "pickupLocation": "Beverly Hills, Los Angeles",
+    "description": "Sharp handling and a playful character make the Cooper S a fun choice for weekend drives through the city or along the coast.",
+    "availabilityStatus": "unavailable"
+  },
+  {
+    "carName": "Toyota Corolla Hatchback SE",
+    "dailyRentPrice": 48,
+    "carType": "Hatchback",
+    "imageUrl": "https://i.ibb.co.com/rR6XPCqj/19-Toyota-Corolla-Hatchback.png",
+    "seatCapacity": 5,
+    "pickupLocation": "Portland, Oregon",
+    "description": "Efficient, easy to drive, and dependable — the Corolla Hatchback is a practical option for travelers who want simplicity without compromise.",
+    "availabilityStatus": "available"
+  },
+  {
+    "carName": "BMW 4 Series Coupe 430i",
+    "dailyRentPrice": 145,
+    "carType": "Coupe",
+    "imageUrl": "https://i.ibb.co.com/JjWQJw6B/20-BMW-4-Series-Coupe.png",
+    "seatCapacity": 4,
+    "pickupLocation": "SeaTac, Seattle",
+    "description": "Sleek lines and a driver-focused cabin. The 430i strikes a balance between everyday usability and weekend driving thrills.",
+    "availabilityStatus": "available"
+  },
+  {
+    "carName": "Audi A5 Coupe",
+    "dailyRentPrice": 150,
+    "carType": "Coupe",
+    "imageUrl": "https://i.ibb.co.com/N2fqmnc3/21-Audi-A5-Coupe.png",
+    "seatCapacity": 4,
+    "pickupLocation": "Manhattan, New York",
+    "description": "Understated and elegant, the A5 Coupe turns heads quietly. A composed ride with quattro grip, suited for date nights or scenic drives.",
+    "availabilityStatus": "available"
+  },
+  {
+    "carName": "Ford Mustang GT",
+    "dailyRentPrice": 165,
+    "carType": "Coupe",
+    "imageUrl": "https://i.ibb.co.com/hFNSKLT7/22-Ford-Mustang-GT.png",
+    "seatCapacity": 4,
+    "pickupLocation": "Las Vegas Strip, Nevada",
+    "description": "An American icon with a throaty V8 growl and head-turning presence. Rent the Mustang for a drive that's as much about the experience as the destination.",
+    "availabilityStatus": "booked"
+  },
+  {
+    "carName": "Mazda MX-5 Miata",
+    "dailyRentPrice": 120,
+    "carType": "Convertible",
+    "imageUrl": "https://i.ibb.co.com/mnmLy2g/23-Mazda-MX-5-Miata.png",
+    "seatCapacity": 2,
+    "pickupLocation": "San Diego, California",
+    "description": "Light, agile, and pure fun with the top down. The Miata is the perfect companion for coastal roads and sunny afternoons.",
+    "availabilityStatus": "available"
+  },
+  {
+    "carName": "BMW 4 Series Convertible 430i",
+    "dailyRentPrice": 185,
+    "carType": "Convertible",
+    "imageUrl": "https://i.ibb.co.com/5pYsn9k/24-BMW4-Series.png",
+    "seatCapacity": 4,
+    "pickupLocation": "Las Vegas Strip, Nevada",
+    "description": "Open-air luxury with a refined cabin underneath. Lower the top, let the engine breathe, and enjoy a drive built for golden-hour cruising.",
+    "availabilityStatus": "available"
+  }
+]

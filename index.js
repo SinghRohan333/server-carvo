@@ -27,12 +27,34 @@ async function run() {
     await client.connect();
 
     const db = client.db("carvo-db");
+    const cars = db.collection("cars");
 
     app.get("/", (req, res) => {
       res.status(200).json({
         success: true,
         message: "Welcome To Carvo Server",
       });
+    });
+
+    app.get("/cars", async (req, res) => {
+      try {
+        const filter = {};
+        if (req.query.featured === "true") {
+          filter.featured = true;
+        }
+        const result = await cars.find(filter).toArray();
+        return res.status(200).json({
+          success: true,
+          message: "Requested Cars data retrived successfully",
+          data: result,
+        });
+      } catch (error) {
+        console.error("Error fetching cars data: ", error);
+        return res.status(500).json({
+          success: false,
+          message: "An internal server error occured while fetching cars data",
+        });
+      }
     });
 
     // Send a ping to confirm a successful connection
