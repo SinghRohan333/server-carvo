@@ -194,6 +194,64 @@ async function run() {
       }
     });
 
+    app.patch("/cars/:id", async (req, res) => {
+      try {
+        const { id } = req.params;
+        const { ownerId, ...updates } = req.body;
+        const car = await cars.findOne({ _id: new ObjectId(id) });
+
+        if (!car) {
+          return res.status(404).json({
+            success: false,
+            message: "Car not found",
+          });
+        }
+
+        if (car.ownerId !== ownerId) {
+          return res.status(403).json({
+            success: false,
+            message: "You are not authorized to edit this car",
+          });
+        }
+
+        const allowedFields = [
+          "dailyRentPrice",
+          "description",
+          "availabilityStatus",
+          "imageUrl",
+          "carType",
+          "pickupLocation",
+        ];
+
+        const safeUpdates = {};
+        for (const field of allowedFields) {
+          if (updates[field] !== undefined) {
+            safeUpdates[field] = updates[field];
+          }
+        }
+        if (safeUpdates.dailyRentPrice !== undefined) {
+          safeUpdates.dailyRentPrice = Number(safeUpdates.dailyRentPrice);
+        }
+
+        const result = await cars.updateOne(
+          { _id: new ObjectId(id) },
+          { $set: safeUpdates },
+        );
+
+        return res.status(200).json({
+          success: true,
+          message: "Car updated successfully",
+          data: result,
+        });
+      } catch (error) {
+        console.error("Error updating car: ", error);
+        return res.status(500).json({
+          success: false,
+          message: "An internal server error occurred while updating the car",
+        });
+      }
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
