@@ -67,6 +67,33 @@ async function run() {
       }
     });
 
+    app.get("/cars/my-cars", async (req, res) => {
+      try {
+        const { ownerId } = req.query;
+
+        if (!ownerId) {
+          return res.status(400).json({
+            success: false,
+            message: "ownerId is required",
+          });
+        }
+
+        const result = await cars.find({ ownerId }).toArray();
+
+        return res.status(200).json({
+          success: true,
+          message: "Your cars retrieved successfully",
+          data: result,
+        });
+      } catch (error) {
+        console.error("Error fetching user's cars: ", error);
+        return res.status(500).json({
+          success: false,
+          message: "An internal server error occurred while fetching your cars",
+        });
+      }
+    });
+
     app.get("/cars/:id", async (req, res) => {
       try {
         const id = req.params.id;
@@ -104,6 +131,69 @@ async function run() {
         });
       }
     });
+
+    //  POST /cars — Create a new car
+    app.post("/cars", async (req, res) => {
+      try {
+        const addedCarsCollection = req.body;
+
+        if (
+          !addedCarsCollection ||
+          Object.keys(addedCarsCollection).length === 0
+        ) {
+          return res.status(400).json({
+            success: false,
+            message: "Request body cannot be empty",
+          });
+        }
+
+        const {
+          ownerId,
+          carName,
+          dailyRentPrice,
+          carType,
+          imageUrl,
+          seatCapacity,
+          pickupLocation,
+          description,
+          availabilityStatus,
+        } = addedCarsCollection;
+
+        if (!ownerId) {
+          return res.status(400).json({
+            success: false,
+            message: "ownerId is required",
+          });
+        }
+
+        const newCar = {
+          ownerId,
+          carName,
+          dailyRentPrice: Number(dailyRentPrice),
+          carType,
+          imageUrl,
+          seatCapacity: Number(seatCapacity),
+          pickupLocation,
+          description,
+          availabilityStatus,
+        };
+
+        const result = await cars.insertOne(newCar);
+
+        return res.status(201).json({
+          success: true,
+          message: "Car added successfully",
+          data: { _id: result.insertedId, ...newCar },
+        });
+      } catch (error) {
+        console.error("Error adding car: ", error);
+        return res.status(500).json({
+          success: false,
+          message: "An internal server error occurred while adding the car",
+        });
+      }
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
