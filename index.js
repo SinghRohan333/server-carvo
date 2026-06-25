@@ -252,6 +252,43 @@ async function run() {
       }
     });
 
+    app.delete("/cars/:id", async (req, res) => {
+      try {
+        const { id } = req.params;
+        const { ownerId } = req.body;
+
+        const car = await cars.findOne({ _id: new ObjectId(id) });
+
+        if (!car) {
+          return res.status(404).json({
+            success: false,
+            message: "Car not found",
+          });
+        }
+
+        if (car.ownerId !== ownerId) {
+          return res.status(403).json({
+            success: false,
+            message: "You are not authorized to delete this car",
+          });
+        }
+
+        const result = await cars.deleteOne({ _id: new ObjectId(id) });
+
+        return res.status(200).json({
+          success: true,
+          message: "Car deleted successfully",
+          data: result,
+        });
+      } catch (error) {
+        console.error("Error deleting car: ", error);
+        return res.status(500).json({
+          success: false,
+          message: "An internal server error occurred while deleting the car",
+        });
+      }
+    });
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log(
