@@ -28,6 +28,7 @@ async function run() {
 
     const db = client.db("carvo-db");
     const cars = db.collection("cars");
+    const bookings = db.collection("bookings");
 
     app.get("/", (req, res) => {
       res.status(200).json({
@@ -285,6 +286,139 @@ async function run() {
         return res.status(500).json({
           success: false,
           message: "An internal server error occurred while deleting the car",
+        });
+      }
+    });
+
+    app.post("/bookings", async (req, res) => {
+      try {
+        const { carId, ownerId, driverNeeded, specialNote, numberOfDays } =
+          req.body;
+
+        if (!carId || !ownerId) {
+          return res.status(400).json({
+            success: false,
+            message: "carId and ownerId are required",
+          });
+        }
+
+        const car = await cars.findOne({ _id: new ObjectId(carId) });
+        if (!car) {
+          return res.status(404).json({
+            success: false,
+            message: "Car not found",
+          });
+        }
+
+        const days = Number(numberOfDays) || 1;
+        const totalPrice = car.dailyRentPrice * days;
+
+        const newBooking = {
+          carId: new ObjectId(carId),
+          carName: car.carName,
+          carImage: car.imageUrl,
+          ownerId,
+          dailyRentPrice: car.dailyRentPrice,
+          numberOfDays: days,
+          totalPrice,
+          driverNeeded: !!driverNeeded,
+          specialNote: specialNote?.trim() || "",
+          status: "pending",
+          createdAt: new Date(),
+        };
+
+        const result = await bookings.insertOne(newBooking);
+
+        await cars.updateOne(
+          { _id: new ObjectId(carId) },
+          { $inc: { booking_count: 1 } },
+        );
+
+        return res.status(201).json({
+          success: true,
+          message: "Booking created successfully",
+          data: { _id: result.insertedId, ...newBooking },
+        });
+      } catch (error) {
+        console.error("Error creating booking: ", error);
+        return res.status(500).json({
+          success: false,
+          message:
+            "An internal server error occurred while creating the booking",
+        });
+      }
+    });
+
+    app.get("/bookings/my", async (req, res) => {
+      try {
+        const { ownerId } = req.query;
+
+        if (!ownerId) {
+          return res.status(400).json({
+            success: false,
+            message: "ownerId is required",
+          });
+        }
+
+        const result = await bookings
+          .find({ ownerId })
+          .sort({ createdAt: -1 })
+          .toArray();
+
+        return res.status(200).json({
+          success: true,
+          message: "Your bookings retrieved successfully",
+          data: result,
+        });
+      } catch (error) {
+        console.error("Error fetching user's bookings: ", error);
+        return res.status(500).json({
+          success: false,
+          message:
+            "An internal server error occurred while fetching your bookings",
+        });
+      }
+    });
+
+    app.delete("/bookings/:id", async (req, res) => {
+      try {
+        const { id } = req.params;
+        const { ownerId } = req.body;
+
+        const booking = await bookings.findOne({ _id: new ObjectId(id) });
+
+        if (!booking) {
+          return res.status(404).json({
+            success: false,
+            message: "Booking not found",
+          });
+        }
+
+        if (booking.ownerId !== ownerId) {
+          return res.status(403).json({
+            success: false,
+            message: "You are not authorized to cancel this booking",
+          });
+        }
+
+        const result = await bookings.deleteOne({ _id: new ObjectId(id) });
+
+        await cars.updateOne(
+          { _id: booking.carId },
+          { $inc: { booking_count: -1 } },
+        );
+
+        return res.status(200).json({
+          success: true,
+          message: "Booking cancelled successfully",
+          data: result,
+        });
+      } catch (error) {
+        console.error("Error cancelling booking: ", error);
+        return res.status(500).json({
+          success: false,
+          message:
+            "An internal server error occurred while cancelling the booking",
         });
       }
     });
