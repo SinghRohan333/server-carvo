@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const { MongoClient, ServerApiVersion, ObjectId } = require("mongodb");
+const { createRemoteJWKSet, jwtVerify } = require("jose-cjs");
 
 const port = process.env.PORT || 8000;
 
@@ -19,7 +20,39 @@ const client = new MongoClient(uri, {
   },
 });
 
-// Create a MongoClient with a MongoClientOptions object to set the Stable API version
+const JWKS = createRemoteJWKSet(
+  new URL(`${process.env.CLIENT_URL}/api/auth/jwks`),
+);
+
+const verifyToken = async (req, res, next) => {
+  try {
+    const authHeader = req?.headers?.authorization;
+
+    if (!authHeader || !authHeader.startsWith("Bearer")) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized. Please login first",
+      });
+    }
+    const token = authHeader.split(" ")[1];
+    if (!token) {
+      return res.status(401).json({
+        success: false,
+        message: "Unauthorized. Token missing",
+      });
+    }
+
+    const { payload } = await jwtVerify(token, JWKS);
+    next();
+    // console.log(token);
+  } catch (error) {
+    console.error("Token verification failed: ", error.message);
+    return res.status(401).json({
+      success: false,
+      message: "Unauthorized. Invalid or expired token",
+    });
+  }
+};
 
 async function run() {
   try {
@@ -68,7 +101,7 @@ async function run() {
       }
     });
 
-    app.get("/cars/my-cars", async (req, res) => {
+    app.get("/cars/my-cars", verifyToken, async (req, res) => {
       try {
         const { ownerId } = req.query;
 
@@ -95,7 +128,7 @@ async function run() {
       }
     });
 
-    app.get("/cars/:id", async (req, res) => {
+    app.get("/cars/:id", verifyToken, async (req, res) => {
       try {
         const id = req.params.id;
 
@@ -134,7 +167,7 @@ async function run() {
     });
 
     //  POST /cars — Create a new car
-    app.post("/cars", async (req, res) => {
+    app.post("/cars", verifyToken, async (req, res) => {
       try {
         const addedCarsCollection = req.body;
 
@@ -195,7 +228,7 @@ async function run() {
       }
     });
 
-    app.patch("/cars/:id", async (req, res) => {
+    app.patch("/cars/:id", verifyToken, async (req, res) => {
       try {
         const { id } = req.params;
         const { ownerId, ...updates } = req.body;
@@ -253,7 +286,7 @@ async function run() {
       }
     });
 
-    app.delete("/cars/:id", async (req, res) => {
+    app.delete("/cars/:id", verifyToken, async (req, res) => {
       try {
         const { id } = req.params;
         const { ownerId } = req.body;
@@ -290,7 +323,7 @@ async function run() {
       }
     });
 
-    app.post("/bookings", async (req, res) => {
+    app.post("/bookings", verifyToken, async (req, res) => {
       try {
         const { carId, ownerId, driverNeeded, specialNote, numberOfDays } =
           req.body;
@@ -349,7 +382,7 @@ async function run() {
       }
     });
 
-    app.get("/bookings/my", async (req, res) => {
+    app.get("/bookings/my", verifyToken, async (req, res) => {
       try {
         const { ownerId } = req.query;
 
@@ -380,7 +413,7 @@ async function run() {
       }
     });
 
-    app.delete("/bookings/:id", async (req, res) => {
+    app.delete("/bookings/:id", verifyToken, async (req, res) => {
       try {
         const { id } = req.params;
         const { ownerId } = req.body;
