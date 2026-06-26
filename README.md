@@ -18,7 +18,9 @@
 
 CARVÕ Server is the backend powering **CARVÕ — DriveFleet**, a premium car rental platform. It's a REST API built on Express and the native MongoDB driver, handling car listings, user-owned car management, and a booking system — with JWT-protected routes guarding any action tied to a specific user.
 
-This API is consumed by the [CARVÕ client](#) (Next.js frontend) — see that repository for the full-stack picture.
+> 🔗 **Live API:** [carvo-server.vercel.app](https://server-carvo.vercel.app)
+
+This API is consumed by the [CARVÕ client](https://carvo-kappa.vercel.app) (Next.js frontend) — see that repository for the full-stack picture.
 
 ---
 
@@ -52,13 +54,13 @@ This API is consumed by the [CARVÕ client](#) (Next.js frontend) — see that r
 
 ## Tech Stack
 
-| Technology | Purpose |
-|---|---|
-| **Node.js** (v26.4.0) | Runtime |
-| **Express** (^5.2.1) | Web framework / routing |
-| **MongoDB** (^7.3.0, native driver) | Database — no ORM/ODM, raw driver queries |
-| **jose-cjs** (^6.2.3) | JWT signing & verification |
-| **cors** (^2.8.6) | Cross-origin request handling between client and server |
+| Technology                          | Purpose                                                 |
+| ----------------------------------- | ------------------------------------------------------- |
+| **Node.js** (v26.4.0)               | Runtime                                                 |
+| **Express** (^5.2.1)                | Web framework / routing                                 |
+| **MongoDB** (^7.3.0, native driver) | Database — no ORM/ODM, raw driver queries               |
+| **jose-cjs** (^6.2.3)               | JWT signing & verification                              |
+| **cors** (^2.8.6)                   | Cross-origin request handling between client and server |
 
 > **Note:** This project uses the **native MongoDB driver**, not Mongoose. Collections are queried directly (`.find()`, `.insertOne()`, `.updateOne()`, etc.) rather than through a schema/model abstraction.
 
@@ -82,22 +84,22 @@ carvo-server/
 
 ### Cars
 
-| Method | Endpoint | Description | Auth Required |
-|---|---|---|:---:|
-| `GET` | `/cars` | Get all cars (supports `search`, `type`, `featured` query filters) | No |
-| `GET` | `/cars/my-cars` | Get cars added by the logged-in user | **Yes** |
-| `GET` | `/cars/:id` | Get a single car by ID | **Yes** |
-| `POST` | `/cars` | Add a new car | **Yes** |
-| `PATCH` | `/cars/:id` | Update an existing car (owner only) | **Yes** |
-| `DELETE` | `/cars/:id` | Delete a car (owner only) | **Yes** |
+| Method   | Endpoint        | Description                                                        | Auth Required |
+| -------- | --------------- | ------------------------------------------------------------------ | :-----------: |
+| `GET`    | `/cars`         | Get all cars (supports `search`, `type`, `featured` query filters) |      No       |
+| `GET`    | `/cars/my-cars` | Get cars added by the logged-in user                               |    **Yes**    |
+| `GET`    | `/cars/:id`     | Get a single car by ID                                             |    **Yes**    |
+| `POST`   | `/cars`         | Add a new car                                                      |    **Yes**    |
+| `PATCH`  | `/cars/:id`     | Update an existing car (owner only)                                |    **Yes**    |
+| `DELETE` | `/cars/:id`     | Delete a car (owner only)                                          |    **Yes**    |
 
 ### Bookings
 
-| Method | Endpoint | Description | Auth Required |
-|---|---|---|:---:|
-| `POST` | `/bookings` | Create a new booking for a car | **Yes** |
-| `GET` | `/bookings/my` | Get the logged-in user's bookings | **Yes** |
-| `DELETE` | `/bookings/:id` | Cancel a booking (owner only) | **Yes** |
+| Method   | Endpoint        | Description                       | Auth Required |
+| -------- | --------------- | --------------------------------- | :-----------: |
+| `POST`   | `/bookings`     | Create a new booking for a car    |    **Yes**    |
+| `GET`    | `/bookings/my`  | Get the logged-in user's bookings |    **Yes**    |
+| `DELETE` | `/bookings/:id` | Cancel a booking (owner only)     |    **Yes**    |
 
 > `GET /cars/:id` is intentionally protected — Car Details pages are only viewable by logged-in users, by design choice.
 
@@ -107,7 +109,7 @@ carvo-server/
 
 Routes marked **Auth Required** are protected by JWT verification logic in `index.js`. A valid token must be sent with the request (typically as an `Authorization: Bearer <token>` header), and the server verifies it using `jose-cjs` before allowing the request to proceed.
 
-On protected routes, the server identifies *who* is making the request from the verified token, rather than trusting any user-identifying field the client might otherwise send — preventing one user from impersonating another by manipulating request data.
+On protected routes, the server identifies _who_ is making the request from the verified token, rather than trusting any user-identifying field the client might otherwise send — preventing one user from impersonating another by manipulating request data.
 
 `GET /cars/:id` is intentionally included among the protected routes — Car Details pages are only viewable by logged-in users, by design.
 
@@ -123,11 +125,11 @@ CLIENT_URL=
 MONGODB_URI=
 ```
 
-| Variable | Description |
-|---|---|
-| `PORT` | Port the Express server listens on |
-| `CLIENT_URL` | Origin of the frontend app, used for CORS configuration |
-| `MONGODB_URI` | MongoDB connection string |
+| Variable      | Description                                             |
+| ------------- | ------------------------------------------------------- |
+| `PORT`        | Port the Express server listens on                      |
+| `CLIENT_URL`  | Origin of the frontend app, used for CORS configuration |
+| `MONGODB_URI` | MongoDB connection string                               |
 
 > Never commit your actual `.env` file. This table documents variable **names** only.
 
@@ -208,7 +210,6 @@ The API will be available at `http://localhost:<PORT>`.
 This is an actively developed solo project. A few things are intentionally incomplete or deferred:
 
 - **Booking status is static.** Every booking is created with `status: "pending"` — there's currently no flow to mark a booking as confirmed, active, or completed.
-- **Deployment pending.** Currently runs locally; a Vercel deployment is planned.
 
 Documenting these openly here rather than leaving them as silent gaps.
 
